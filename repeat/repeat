@@ -48,7 +48,11 @@ if [[ "$DAYS" != "" ]]; then
 	fi
     elif [[ $DAYS == [0-9]* ]]; then
         # make new date relative from now
-        DATE=`date -d $DAYS" days" +%Y-%m-%d`
+        if [[ $(uname) == "Darwin" ]]; then
+            DATE=`date -v +${DAYS}d +%Y-%m-%d`
+        else
+            DATE=`date -d $DAYS" days" +%Y-%m-%d`
+        fi
     fi
     LINE=$DATE" "$LINE # and append to the line
 fi
